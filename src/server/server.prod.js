@@ -1,39 +1,49 @@
-const path = require('path');
-
 import React from 'react'
 import { renderToString, renderToNodeStream } from 'react-dom/server'
-import Home from '../app';
+import { StaticRouter } from 'react-router-dom';
+
+// import Root from '../view/containers/Root';
+
+import renderRoutes from '../view/routes';
 
 // gizp
 const compression = require('compression');
 
-
+const path = require('path');
 const Express = require('express');
-
 const fs = require('fs');
 const http = require('http');
 
 const app = new Express();
+
 app.use(compression({ threshold: 0 }));
-
-
 app.use('/lib', Express.static(path.join(__dirname, './src/lib')));
 app.use('/statics', Express.static(path.join(__dirname, './src/statics')));
 app.use('/dll', Express.static(path.join(__dirname, './dll')));
-app.get('/*', handleRender);
+app.get('/*', (req, res) => {
 
+    const context = {};
 
-function handleRender(req, res) {
+    const appWithRouter = (
+        <StaticRouter location={req.url} context={context}>
+            {renderRoutes()}
+        </StaticRouter>
+    );
+
+    if (context.url) {
+        res.redirect(context.url);
+        return;
+    }
 
     res.write('<html></head><title>Page</title></head><body><div id="root">');
-    const stream = renderToNodeStream(<Home/>);
+    const stream = renderToNodeStream(appWithRouter);
     stream.pipe(res, { end: 'false' });
     stream.on('end', () => {
         res.end('</div></body></html>')
     });
 
-    // const html = renderToString(<Home/>);
-    // fs.readFile('./src/index.tpl.html', 'utf-8', (err, data) => {
+    // const html = renderToString(<appWithRouter/>);
+    // fs.readFile('../tpl/index.tpl.html', 'utf-8', (err, data) => {
     //     if (err) throw err;
 
     //     // 把渲染后的 React HTML 插入到 div 中
@@ -42,13 +52,11 @@ function handleRender(req, res) {
     //     // 把响应传回给客户端
     //     res.send(document);
     // })
-}
+});
 
 
 
-
-
-const PORT = 3999;
+const PORT = 4999;
 const httpServer = http.createServer(app);
 
 httpServer.listen(PORT, function httpS() {

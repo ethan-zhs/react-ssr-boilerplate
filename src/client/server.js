@@ -1,5 +1,5 @@
 const webpack = require('webpack');
-const config = require('./config/webpack.config');
+const config = require('../../config/webpack.config');
 
 const path = require('path');
 
@@ -15,14 +15,14 @@ const fs = require('fs');
 const http = require('http');
 
 const app = new Express();
-const compiler = webpack(config);
+const compiler = webpack(config[0]);
 app.use(compression({ threshold: 0 }));
 
 app.use(webpackDevMiddleware(
     compiler,
     {
         noInfo: true,
-        publicPath: config.output.publicPath
+        publicPath: config[0].output.publicPath
     }
 ));
 app.use(webpackHotMiddleware(compiler));
@@ -30,7 +30,7 @@ app.use('/lib', Express.static(path.join(__dirname, './src/lib')));
 app.use('/statics', Express.static(path.join(__dirname, './src/statics')));
 app.use('/dll', Express.static(path.join(__dirname, './dll')));
 app.get('/*', function (req, res) {
-    res.sendFile(path.join(__dirname, './src/index.html'));
+    res.sendFile(path.join(__dirname, './index.html'));
 });
 
 

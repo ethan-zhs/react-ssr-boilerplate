@@ -11,55 +11,57 @@ function getExternals() {
         }, {})
 }
 
-const config = [{
-    entry: path.join(__dirname, '../src/index.js'),
+const config = {
+    clientConfig: {
+        entry: path.join(__dirname, '../src/client/index.js'),
 
-    output: {
-        path: path.join(__dirname, '../dist/client'),
-        filename: 'bundle.js'
-    },
+        output: {
+            path: path.join(__dirname, '../dist/client'),
+            filename: 'bundle.js'
+        },
 
-    module: {
-        rules: [
-            {
-                test: /\.(js|jsx)$/,
-                use: {
-                    loader: 'babel-loader?cacheDirectory=true'
-                },
-                include: path.join(__dirname, '../src')
-            }
+        module: {
+            rules: [
+                {
+                    test: /\.(js|jsx)$/,
+                    use: {
+                        loader: 'babel-loader?cacheDirectory=true'
+                    },
+                    include: path.join(__dirname, '../src')
+                }
+            ]
+        },
+
+        plugins: [
+
         ]
     },
+    serverConfig: {
+        entry: path.join(__dirname, '../src/server/server.prod'),
 
-    plugins: [
+        output: {
+            path: path.join(__dirname, '../dist/server'),
+            filename: '[name].js'
+        },
 
-    ]
-},
-{
-    entry: path.join(__dirname, '../src/server/server.prod'),
+        target: 'node',
 
-    output: {
-        path: path.join(__dirname, '../dist/server'),
-        filename: '[name].js'
-    },
+        module: {
+            rules: [
+                {
+                    test: /\.(js|jsx)$/,
+                    use: {
+                        loader: 'babel-loader?cacheDirectory=true'
+                    },
+                    include: path.join(__dirname, '../src')
+                }
+            ]
+        },
 
-    target: 'node',
+        plugins: [
 
-    module: {
-        rules: [
-            {
-                test: /\.(js|jsx)$/,
-                use: {
-                    loader: 'babel-loader?cacheDirectory=true'
-                },
-                include: path.join(__dirname, '../src')
-            }
         ]
-    },
+    }
+}
 
-    plugins: [
-
-    ]
-}]
-
-module.exports = config
+module.exports = [config.clientConfig, config.serverConfig]
