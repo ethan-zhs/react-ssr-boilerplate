@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import PropsType from 'prop-types';
+// import PropsType from 'prop-types';
 
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
@@ -25,10 +25,7 @@ export const history = createBrowserHistory();
 
 const store = createStore(reducers);
 
-
-
 class Root extends Component {
-
     render() {
         return (
             <Provider store={store}>
@@ -36,9 +33,8 @@ class Root extends Component {
                     {renderRoutes()}
                 </Router>
             </Provider>
-        )
+        );
     }    
 }
 
 export default Root;
-

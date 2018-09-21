@@ -1,27 +1,27 @@
 const path = require('path')
-const fs = require('fs')
-
-function getExternals() {
-    return fs.readdirSync(path.resolve(__dirname, '../node_modules'))
-        .filter(filename => !filename.includes('.bin'))
-        .reduce((externals, filename) => {
-            externals[filename] = `commonjs ${filename}`
-
-            return externals
-        }, {})
-}
 
 const config = {
     clientConfig: {
+        devtool: 'inline-source-map', 
         entry: path.join(__dirname, '../src/client/index.js'),
 
         output: {
             path: path.join(__dirname, '../dist/client'),
-            filename: 'bundle.js'
+            filename: 'main.js'
         },
 
         module: {
+            noParse: /es6-promise\.js$/,
             rules: [
+                {
+                    loader: 'eslint-loader',
+                    test: /.js$/,
+                    enforce: 'pre',
+                    include: path.join(__dirname, '../src'),
+                    options: {
+                        formatter: require('eslint-friendly-formatter')
+                    }
+                },
                 {
                     test: /\.(js|jsx)$/,
                     use: {
@@ -37,11 +37,11 @@ const config = {
         ]
     },
     serverConfig: {
-        entry: path.join(__dirname, '../src/server/server.prod'),
+        entry: path.join(__dirname, '../src/server/server.dev'),
 
         output: {
             path: path.join(__dirname, '../dist/server'),
-            filename: '[name].js'
+            filename: 'server.js'
         },
 
         target: 'node',

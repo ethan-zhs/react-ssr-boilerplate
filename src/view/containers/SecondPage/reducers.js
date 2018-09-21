@@ -5,13 +5,13 @@ const initialState = fromJS({
     data: {}
 });
 
-const secondPage = (state = initState, action) => {
+const secondPage = (state = initialState, action) => {
     switch (action.type) {
-      case 'ADD_TODO_SECOND':
-        return state.set('list', action.list)
-      default:
-        return state
+        case 'ADD_TODO_SECOND':
+            return state.set('list', action.list);
+        default:
+            return state;
     }
-  }
+};
   
-  export default secondPage
+export default secondPage;

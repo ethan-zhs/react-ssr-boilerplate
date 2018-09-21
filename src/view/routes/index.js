@@ -9,12 +9,11 @@ import SecondPage from '../containers/SecondPage';
 
 
 export default function renderRoutes(store) {
-	return (
-		<Switch>
+    return (
+        <Switch>
             <Route exact path="/" component={HomePage}></Route>
             <Route exact path="/first" component={FirstPage}></Route>
             <Route exact path="/second" component={SecondPage}></Route>
         </Switch>
-	)
+    );
 }
-

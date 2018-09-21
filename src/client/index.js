@@ -6,9 +6,7 @@ import 'babel-polyfill';
 import Root from '../view/containers/Root';
 
 
-render (
+render(
     <Root />,
     document.getElementById('root')
 );
-
-
