@@ -3,22 +3,28 @@ import { connect } from 'react-redux';
 // import PropsType from 'prop-types';
 
 import selectors from './selectors';
+import * as Actions from './actions';
 
 
 class FirstPage extends Component {
+    // constructor(props) {
+    //     super(props);
+    // }
+
+    handleAdd = () => {
+        console.log(this.props.add);
+        this.props.add();
+    }
+
     render() {
         const { list } = this.props;
-        console.log('xxxxxxxx', list);
 
         return (
-            <div>First Page</div>
+            <div onClick={this.handleAdd}>First Page</div>
         );
     }    
 }
 
-const mapDispatchToProps = (dispatch) => ({});
-
-export default connect(
-    selectors,
-    mapDispatchToProps
-)(FirstPage);
+export default connect(selectors, {
+    add: Actions.add.request
+})(FirstPage);
