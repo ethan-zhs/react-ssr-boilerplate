@@ -46,8 +46,7 @@ const composeEnhancers = process.env.NODE_ENV !== 'production'
 const store = createStore(reducers, composeEnhancers(...enhancers));
 
 store.runSaga = sagaMiddleware.run;
-
-rootSagas.map(item => store.runSaga[item]);
+store.runSaga(rootSagas);
 
 if (module.hot) {
     module.hot.accept('./reducers', () => {

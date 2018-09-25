@@ -7,24 +7,34 @@ import * as Actions from './actions';
 
 
 class FirstPage extends Component {
-    // constructor(props) {
-    //     super(props);
-    // }
+    constructor(props) {
+        super(props);
+        this.state = {};
+    }
 
     handleAdd = () => {
-        console.log(this.props.add);
         this.props.add();
+    }
+
+    handleCut = () => {
+        this.props.cut();
     }
 
     render() {
         const { list } = this.props;
 
+        console.log(list);
+
         return (
-            <div onClick={this.handleAdd}>First Page</div>
+            <div>
+                <a onClick={this.handleAdd}>First Page</a>
+                <a onClick={this.handleCut}>First Page</a>
+            </div>
         );
     }    
 }
 
 export default connect(selectors, {
-    add: Actions.add.request
+    add: Actions.add.request,
+    cut: Actions.cut.request
 })(FirstPage);

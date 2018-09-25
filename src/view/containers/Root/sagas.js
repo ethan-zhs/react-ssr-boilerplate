@@ -1,7 +1,6 @@
+import { fork } from 'redux-saga/effects';
 import firstSaga from '../FirstPage/sagas';
 
-const rootSagas = [
-    firstSaga
-];
-
-export default rootSagas;
+export default function* rootSagas() {
+    yield fork(firstSaga);
+}

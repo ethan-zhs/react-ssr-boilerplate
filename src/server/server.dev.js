@@ -43,19 +43,8 @@ app.get('/*', (req, res) => {
     const stream = renderToNodeStream(appWithRouter);
     stream.pipe(res, { end: 'false' });
     stream.on('end', () => {
-        res.end('</div></body></html>');
+        res.end('</div><script src="main.js"></script></body></html>');
     });
-
-    // const html = renderToString(<appWithRouter/>);
-    // fs.readFile('../tpl/index.tpl.html', 'utf-8', (err, data) => {
-    //     if (err) throw err;
-
-    //     // 把渲染后的 React HTML 插入到 div 中
-    //     const document = data.replace(/<div id="root"><\/div>/, `<div id="root">${html}</div>`);
-    
-    //     // 把响应传回给客户端
-    //     res.send(document);
-    // })
 });
 
 
