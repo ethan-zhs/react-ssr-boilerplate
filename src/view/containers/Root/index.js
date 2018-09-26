@@ -15,7 +15,7 @@ import createBrowserHistory from 'history/createBrowserHistory';
 // import { syncHistoryWithStore } from 'react-router-redux';
 // import CatchErrorHandler from 'components/CatchErrorHandler';
 
-import renderRoutes from '../../routes';
+import renderRoutes from '../../routes/renderRoutes';
 import reducers from './reducers';
 import rootSagas from './sagas';
 

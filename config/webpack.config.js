@@ -1,13 +1,17 @@
 const path = require('path')
+const webpack = require('webpack')
 
 const config = {
     clientConfig: {
         devtool: 'inline-source-map', 
-        entry: path.join(__dirname, '../src/client/index.js'),
+        entry: {
+            client: path.join(__dirname, '../src/client/index.js'),
+            vendor: ['react', 'react-dom', 'react-router-dom', 'redux', 'redux-saga', 'react-redux']
+        },
 
         output: {
             path: path.join(__dirname, '../dist/client'),
-            filename: 'main.js'
+            filename: '[name].js',
         },
 
         module: {
@@ -33,8 +37,20 @@ const config = {
         },
 
         plugins: [
+            
+        ],
 
-        ]
+        optimization: {
+            splitChunks: {
+                cacheGroups: {
+                    commons: {
+                        name: "vendor",
+                        chunks: "initial",
+                        minChunks: 2
+                    }
+                }
+            }
+        },
     },
     serverConfig: {
         entry: path.join(__dirname, '../src/server/server.dev'),

@@ -1,19 +1,22 @@
-import React from 'react';
-import { Route } from 'react-router-dom';
-import { Switch } from 'react-router';
+import loadable from 'loadable-components';
 
 
-import HomePage from '../containers/HomePage';
-import FirstPage from '../containers/FirstPage';
-import SecondPage from '../containers/SecondPage';
+const routes = [
+    {
+        path: '/',
+        component: loadable(() => import('../containers/HomePage')),
+        exact: true
+    },
+    {
+        path: '/first',
+        component: loadable(() => import('../containers/FirstPage')),
+        exact: true
+    },
+    {
+        path: '/second',
+        component: loadable(() => import('../containers/SecondPage')),
+        exact: true
+    }
+];
 
-
-export default function renderRoutes(store) {
-    return (
-        <Switch>
-            <Route exact path="/" component={HomePage}></Route>
-            <Route exact path="/first" component={FirstPage}></Route>
-            <Route exact path="/second" component={SecondPage}></Route>
-        </Switch>
-    );
-}
+export default routes;

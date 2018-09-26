@@ -2,12 +2,12 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import { renderToString, renderToNodeStream } from 'react-dom/server';
 import { StaticRouter } from 'react-router-dom';
-import { createStore } from 'redux';
+import { Helmet } from 'react-helmet';
 
-import renderRoutes from '../view/routes';
-import reducers from '../view/containers/Root/reducers';
+import renderRoutes from '../view/routes/routesServer';
+import { renderHeader, renderFooter } from './render';
+import configureStore from './store';
 
-const store = createStore(reducers);
 
 // gizp
 const compression = require('compression');
@@ -18,6 +18,7 @@ const fs = require('fs');
 const http = require('http');
 
 const app = new Express();
+const store = configureStore();
 
 app.use(compression({ threshold: 0 }));
 app.use('/lib', Express.static(path.join(__dirname, './src/lib')));
@@ -39,7 +40,9 @@ app.get('/*', (req, res) => {
         return;
     }
 
-    res.write('<html></head><title>Page</title></head><body><div id="root">');
+    const helmet = Helmet.renderStatic();
+
+    res.write(renderHeader(helmet));
     const stream = renderToNodeStream(appWithRouter);
     stream.pipe(res, { end: 'false' });
     stream.on('end', () => {

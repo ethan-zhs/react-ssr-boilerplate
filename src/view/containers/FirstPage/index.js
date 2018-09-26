@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import Helmet from 'react-helmet';
 // import PropsType from 'prop-types';
 
 import selectors from './selectors';
@@ -27,6 +28,9 @@ class FirstPage extends Component {
 
         return (
             <div>
+                <Helmet>
+                    <title>asdasdasd</title>
+                </Helmet>
                 <a onClick={this.handleAdd}>First Page</a>
                 <a onClick={this.handleCut}>First Page</a>
             </div>
