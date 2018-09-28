@@ -10,6 +10,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "asset-require-hook": "^1.2.0",
+    "css-modules-require-hook": "^4.2.3",
     "express": "^4.16.3",
     "immutable": "^3.8.2",
     "loadable-components": "^2.2.3",

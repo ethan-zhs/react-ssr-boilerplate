@@ -14,6 +14,7 @@ class FirstPage extends Component {
     }
 
     handleAdd = () => {
+        console.log(111);
         this.props.add();
     }
 

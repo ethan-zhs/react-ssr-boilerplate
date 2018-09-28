@@ -44,9 +44,10 @@ app.get('/*', (req, res) => {
 
     res.write(renderHeader(helmet));
     const stream = renderToNodeStream(appWithRouter);
-    stream.pipe(res, { end: 'false' });
+    stream.pipe(res, { end: false });
     stream.on('end', () => {
-        res.end('</div><script src="main.js"></script></body></html>');
+        res.write('</div><script src="server.js"></script></body></html>');
+        res.end();
     });
 });
 
