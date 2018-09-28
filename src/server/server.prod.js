@@ -1,5 +1,5 @@
-import React from 'react'
-import { renderToString, renderToNodeStream } from 'react-dom/server'
+import React from 'react';
+import { renderToString, renderToNodeStream } from 'react-dom/server';
 import { StaticRouter } from 'react-router-dom';
 
 // import Root from '../view/containers/Root';
@@ -21,7 +21,6 @@ app.use('/lib', Express.static(path.join(__dirname, './src/lib')));
 app.use('/statics', Express.static(path.join(__dirname, './src/statics')));
 app.use('/dll', Express.static(path.join(__dirname, './dll')));
 app.get('/*', (req, res) => {
-
     const context = {};
 
     const appWithRouter = (
@@ -39,7 +38,7 @@ app.get('/*', (req, res) => {
     const stream = renderToNodeStream(appWithRouter);
     stream.pipe(res, { end: 'false' });
     stream.on('end', () => {
-        res.end('</div></body></html>')
+        res.end('</div></body></html>');
     });
 
     // const html = renderToString(<appWithRouter/>);
@@ -53,7 +52,6 @@ app.get('/*', (req, res) => {
     //     res.send(document);
     // })
 });
-
 
 
 const PORT = 4999;
