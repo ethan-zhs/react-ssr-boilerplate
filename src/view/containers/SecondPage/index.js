@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import Helmet from 'react-helmet';
 // import PropsType from 'prop-types';
 
 import moduleInjector from '../../utils/moduleInjector';
@@ -38,6 +39,9 @@ class SecondPage extends Component {
 
         return (
             <div>
+                <Helmet>
+                    <title>second Page</title>
+                </Helmet>
                 <a onClick={this.handleAdd}>SecondPage</a>
                 <a onClick={this.handleCut}>SecondPage</a>
             </div>

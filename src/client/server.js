@@ -1,18 +1,13 @@
 const webpack = require('webpack');
-const config = require('../../config/webpack.config');
-
-const path = require('path');
-
-// gizp
-const compression = require('compression');
-
 const webpackDevMiddleware = require('webpack-dev-middleware');
 const webpackHotMiddleware = require('webpack-hot-middleware');
-
-const Express = require('express');
-
 const fs = require('fs');
+const path = require('path');
 const http = require('http');
+const Express = require('express');
+const compression = require('compression'); // gizp
+const config = require('../../config/webpack.config');
+
 
 const app = new Express();
 const compiler = webpack(config[0]);

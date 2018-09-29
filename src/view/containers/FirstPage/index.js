@@ -14,7 +14,6 @@ class FirstPage extends Component {
     }
 
     handleAdd = () => {
-        console.log(111);
         this.props.add();
     }
 
@@ -30,7 +29,7 @@ class FirstPage extends Component {
         return (
             <div>
                 <Helmet>
-                    <title>asdasdasd</title>
+                    <title>first Page</title>
                 </Helmet>
                 <a onClick={this.handleAdd}>First Page</a>
                 <a onClick={this.handleCut}>First Page</a>

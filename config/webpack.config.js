@@ -12,6 +12,7 @@ const config = {
         output: {
             path: path.join(__dirname, '../dist/client'),
             filename: '[name].js',
+            publicPath: '/dist/client/'
         },
 
         module: {

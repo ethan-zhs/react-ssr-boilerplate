@@ -5,11 +5,6 @@ import { Switch } from 'react-router';
 import routes from './index';
 
 
-import HomePage from '../containers/HomePage';
-import FirstPage from '../containers/FirstPage';
-import SecondPage from '../containers/SecondPage';
-
-
 export default function renderRoutes(store) {
     return (
         <Switch>
