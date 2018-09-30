@@ -32,7 +32,7 @@ class FirstPage extends Component {
                     <title>first Page</title>
                 </Helmet>
                 <a onClick={this.handleAdd}>First Page</a>
-                <a onClick={this.handleCut}>First Page</a>
+                <a onClick={this.handleCut}>Cut33 First Page</a>
             </div>
         );
     }    

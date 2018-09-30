@@ -23,7 +23,7 @@ app.use(webpackDevMiddleware(
 app.use(webpackHotMiddleware(compiler));
 app.use('/lib', Express.static(path.join(__dirname, './src/lib')));
 app.use('/statics', Express.static(path.join(__dirname, './src/statics')));
-app.use('/dll', Express.static(path.join(__dirname, './dll')));
+app.use('/dll', Express.static(path.join(__dirname, '../../dll')));
 app.get('/*', function (req, res) {
     res.sendFile(path.join(__dirname, './index.html'));
 });

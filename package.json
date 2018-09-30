@@ -5,16 +5,23 @@
   "main": "index.js",
   "scripts": {
     "start": "cross-env NODE_ENV=development node ./src/client/server.js",
-    "start-ssr": "rimraf dist&&webpack --config ./config/webpack.config.js&&node ./dist/server/server.js"
+    "start-ssr": "rimraf dist&&webpack --config ./config/webpack.config.js&&node ./dist/server/server.js",
+    "dll": "rimraf dll&&webpack --config ./config/webpack.dll.config.js --colors --progress --profile"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "asset-require-hook": "^1.2.0",
+    "crypto-js": "^3.1.9-1",
+    "css-loader": "^1.0.0",
     "css-modules-require-hook": "^4.2.3",
     "express": "^4.16.3",
     "immutable": "^3.8.2",
+    "less": "^3.8.1",
+    "less-loader": "^4.1.0",
     "loadable-components": "^2.2.3",
+    "postcss": "^7.0.4",
+    "postcss-loader": "^3.0.0",
     "react": "^16.5.0",
     "react-dom": "^16.5.0",
     "react-helmet": "^5.2.0",
@@ -26,7 +33,8 @@
     "redux-immutable": "^4.0.0",
     "redux-logger": "^3.0.6",
     "redux-saga": "^0.16.0",
-    "reselect": "^3.0.1"
+    "reselect": "^3.0.1",
+    "style-loader": "^0.23.0"
   },
   "devDependencies": {
     "autoprefixer": "^9.1.5",

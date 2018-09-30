@@ -26,7 +26,7 @@ app.use(compression({ threshold: 0 }));
 app.use('/dist', Express.static('./dist'));
 app.use('/lib', Express.static(path.join(__dirname, './src/lib')));
 app.use('/statics', Express.static(path.join(__dirname, './src/statics')));
-app.use('/dll', Express.static(path.join(__dirname, './dll')));
+app.use('/dll', Express.static('./dll'));
 app.get('/*', async (req, res) => {
     const context = {};
 

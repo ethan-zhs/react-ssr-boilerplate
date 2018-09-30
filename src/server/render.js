@@ -17,7 +17,7 @@ export const renderFooter = (loadableState, preloadedState) => `
             <script>
                 window.__PRELOADED_STATE__ = ${JSON.stringify(preloadedState).replace(/</g, '\\u003c')}
             </script>
-            <script src="/dist/client/vendor.js"></script>
+            <script src="/dll/vendor.dll.js"></script>
             <script src="/dist/client/client.js"></script>
             ${loadableState.getScriptTag()}
         </body>
