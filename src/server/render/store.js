@@ -3,7 +3,7 @@ import createSagaMiddleware, { END } from 'redux-saga';
 import createMemoryHistory from 'history/createMemoryHistory';
 import { routerMiddleware } from 'react-router-redux';
 
-import reducers from '../view/containers/Root/reducers';
+import reducers from '../../view/containers/Root/reducers';
 
 const sagaMiddleware = createSagaMiddleware();
 

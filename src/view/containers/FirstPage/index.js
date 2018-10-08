@@ -6,6 +6,8 @@ import Helmet from 'react-helmet';
 import selectors from './selectors';
 import * as Actions from './actions';
 
+import styles from './index.less';
+
 
 class FirstPage extends Component {
     constructor(props) {
@@ -27,12 +29,13 @@ class FirstPage extends Component {
         console.log(list);
 
         return (
-            <div>
+            <div className={styles.layout}>
                 <Helmet>
                     <title>first Page</title>
                 </Helmet>
                 <a onClick={this.handleAdd}>First Page</a>
                 <a onClick={this.handleCut}>Cut33 First Page</a>
+                <img src={require('../../statics/images/01.jpg')} />
             </div>
         );
     }    

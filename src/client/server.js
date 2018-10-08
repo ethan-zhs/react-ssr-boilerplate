@@ -10,14 +10,14 @@ const config = require('../../config/webpack.config');
 
 
 const app = new Express();
-const compiler = webpack(config[0]);
+const compiler = webpack(config);
 app.use(compression({ threshold: 0 }));
 
 app.use(webpackDevMiddleware(
     compiler,
     {
         noInfo: true,
-        publicPath: config[0].output.publicPath
+        publicPath: config.output.publicPath
     }
 ));
 app.use(webpackHotMiddleware(compiler));
