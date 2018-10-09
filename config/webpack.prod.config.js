@@ -18,7 +18,8 @@ const config = {
         },
 
         output: {
-            filename: 'js/[name]_[hash:8].js'
+            filename: 'js/[name]_[hash:8].js',
+            publicPath: '/',
         },
 
         module: {
@@ -90,22 +91,6 @@ const config = {
             new webpack.DefinePlugin({
                 'process.env.NODE_ENV': JSON.stringify('production')
             }),
-
-            // new webpack.optimize.UglifyJsPlugin({
-            //     // 需要在LoaderOptionsPlugin中匹配minize
-            //     sourceMap: true,
-            //     // 最紧凑的输出
-            //     beautify: false,
-            //     // 删除所有的注释
-            //     comments: false,
-            //     compress: {
-            //         // 在UglifyJs删除没有用到的代码时不输出警告  
-            //         warnings: false,
-            //         // 删除所有的 `console` 语句
-            //         // 还可以兼容ie浏览器
-            //         drop_console: true,
-            //     },
-            // }),
     
             new ExtractTextPlugin({
                 filename: 'css/[name]_[hash:8].css',
@@ -113,7 +98,7 @@ const config = {
             }),
 
             new HtmlWebpackPlugin({
-                template: path.join(__dirname, '../src/tpl/index.tpl.html'),
+                template: path.join(__dirname, '../src/client/template/index.tpl.html'),
                 filename: 'index.html',
                 inject: true,
             })
@@ -139,7 +124,8 @@ const config = {
 
         output: {
             path: path.join(__dirname, '../dist/server'),
-            filename: 'server.js'
+            filename: 'server.js',
+            publicPath: '/'
         },
 
         target: 'node',
@@ -149,15 +135,65 @@ const config = {
                 {
                     test: /\.(js|jsx)$/,
                     use: {
-                        loader: 'babel-loader?cacheDirectory=true'
+                        loader: 'babel-loader'
                     },
                     include: path.join(__dirname, '../src')
+                },
+                {
+                    test: /\.css$/,
+                    use: ExtractTextPlugin.extract({
+                        fallback: 'style-loader',
+                        use: [
+                            {
+                                loader: 'css-loader',
+                                options: {
+                                    modules: true,
+                                    localIdentName: '[name]__[local]-[hash:base64:5]',
+                                    importLoaders: 1
+                                }
+                            },
+                            'postcss-loader'
+                        ]
+                    }),
+                    include: path.join(__dirname, '../src'),
+                },
+                {
+                    test: /\.less$/,
+                    use: ExtractTextPlugin.extract({
+                        fallback: 'style-loader',
+                        use: [
+                            {
+                                loader: 'css-loader',
+                                options: {
+                                    modules: true,
+                                    localIdentName: '[name]__[local]-[hash:base64:5]',
+                                    importLoaders: 1
+                                }
+                            },
+                            'less-loader'
+                        ]
+                    }),
+                    include: path.join(__dirname, '../src')
+                },
+                {
+                    test: /\.(jpe?g|png|ico|gif|woff|woff2|eot|ttf|svg|swf)$/,
+                    use: [
+                        {
+                            loader: 'url-loader',
+                            options: {
+                                limit: 4000,
+                                name: 'images/[name][hash:8].[ext]'
+                            }
+                        }
+                    ]
                 }
             ]
         },
 
         plugins: [
-
+            new ExtractTextPlugin({
+                filename: 'css/[name]_[hash:8].css',
+            })
         ]
     }
 }

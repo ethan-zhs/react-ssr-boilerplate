@@ -5,8 +5,7 @@ export const renderHeader = helmet => `
             <meta charset="UTF-8">
             ${helmet.title.toString()}
             ${helmet.meta.toString()}
-            ${helmet.link.toString()}
-            
+            ${helmet.link.toString()}            
         </head>
         <body ${helmet.bodyAttributes.toString()}>
             <div id="root">

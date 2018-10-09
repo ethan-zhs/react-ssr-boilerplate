@@ -5,14 +5,28 @@ import { StaticRouter } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import { getLoadableState } from 'loadable-components/server';
 
-import renderRoutes from '../../view/routes/routesServer';
-import sagas from '../../view/containers/Root/sagas';
-import { renderHeader, renderFooter } from './serverRenderTpl';
-import configureStore from './store';
+import renderRoutes from '../view/routes/routesServer';
+import sagas from '../view/containers/Root/sagas';
+import { renderHeader, renderFooter } from './render/serverRenderTpl';
+import configureStore from './render/store';
 
+
+// gizp
+const compression = require('compression');
+const path = require('path');
+const Express = require('express');
+const fs = require('fs');
+const http = require('http');
+
+const app = new Express();
 const store = configureStore();
 
-export default async (req, res) => {
+app.use(compression({ threshold: 0 }));
+app.use('/dist', Express.static('./dist'));
+app.use('/lib', Express.static(path.join(__dirname, './src/lib')));
+app.use('/images', Express.static(path.join(__dirname, './images')));
+app.use('/dll', Express.static('./dll'));
+app.get('/*', async (req, res) => {
     const context = {};
 
     const appWithRouter = (
@@ -39,4 +53,12 @@ export default async (req, res) => {
         res.write(renderFooter(loadableState, preloadedState));
         res.end();
     });
-};
+});
+
+
+const PORT = 4999;
+const httpServer = http.createServer(app);
+
+httpServer.listen(PORT, function httpS() {
+    console.log('HTTP Server is running on: http://localhost:%s', PORT);
+});
