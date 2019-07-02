@@ -1,0 +1,16 @@
+{
+  // eslint prettier 设置
+  "prettier.eslintIntegration": true,
+  "eslint.autoFixOnSave": true,
+  "typescript.updateImportsOnFileMove.enabled": "always",
+  "prettier.disableLanguages": [],
+  
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact",
+    {
+      "language": "react",
+      "autoFix": true
+    }
+  ]
+}

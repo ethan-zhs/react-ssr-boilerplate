@@ -1,11 +1,11 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
-import { Switch } from 'react-router';
+import { Switch, Redirect } from 'react-router';
 
 import routes from './index';
 
 
-export default function renderRoutes(store) {
+export default function renderRoutes() {
     return (
         <Switch>
             {routes.map((route, index) => {
@@ -17,12 +17,15 @@ export default function renderRoutes(store) {
 
                 return (
                     <Route 
+                        key={path || index}
                         exact={exact} 
                         path={path}
-                        component={component}
-                    ></Route>
+                        render={props => <route.component {...props} route={route} />}
+                    />
                 );
             })}
+
+            <Redirect to="/404" />
         </Switch>
     );
 }

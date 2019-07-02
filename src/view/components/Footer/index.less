@@ -1,0 +1,85 @@
+.footer {
+    background: #282828;
+    height: 120px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+
+    .footer-wrap {
+        width: 1200px;
+        margin: 0 auto;
+    }
+
+    .foot-left {
+        float: left;
+        margin-top: 35px;
+        font-size: 16px;
+    }
+    .foot-right {
+        float: right;
+    }
+    .foot-nav {
+        margin-bottom: 12px;
+
+        .foot-nav-link {
+            color: #fff;
+            font-family: 'PingFangSC';
+            margin-right: 36px;
+
+            &:hover {
+                color: #a6a6a6;
+            }
+        }
+    }
+    .copyright {
+        color: #aaa;
+        font-size: 14px;
+        font-family: 'PingFangSC';
+        span {
+            margin-right: 20px;
+            a {
+                color: #aaa;
+                margin-left: 15px;
+                img {
+                    position: relative;
+                    top: 3px;
+                }
+            }
+        }        
+    }
+    .show-code {
+        display: inline-block;
+    }
+    .wx-qrcode {
+        background: url(../../statics/images/web_index_wx.png) no-repeat;
+        background-size: 36px 36px;
+
+        &:hover {
+            background: url(../../statics/images/web_index_wx_y.png) no-repeat;
+            background-size: 36px 36px;
+        }
+    }
+    .wb-qrcode {
+        background: url(../../statics/images/web_index_sina.png) no-repeat;
+        background-size: 36px 36px;
+        
+        &:hover {
+            background: url(../../statics/images/web_index_sina_y.png) no-repeat;
+            background-size: 36px 36px;
+        }
+    }
+    .qq-qrcode {
+        background: url(../../statics/images/web_index_qq.png) no-repeat;
+        background-size: 36px 36px;
+
+        &:hover {
+            background: url(../../statics/images/web_index_qq_y.png) no-repeat;
+            background-size: 36px 36px;
+        }
+    }
+}
+
+:global(#cnzz_stat_icon_1262018957) {
+    display: none;
+}

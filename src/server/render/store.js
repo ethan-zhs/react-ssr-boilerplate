@@ -1,20 +1,21 @@
 import { createStore, applyMiddleware, compose } from 'redux';
 import createSagaMiddleware, { END } from 'redux-saga';
-import createMemoryHistory from 'history/createMemoryHistory';
 import { routerMiddleware } from 'react-router-redux';
 
-import reducers from '../../view/containers/Root/reducers';
+import rootReducers from 'View/rootReducers';
 
 const sagaMiddleware = createSagaMiddleware();
 
+const createHistory = require('history').createMemoryHistory;
+
 const reduxMiddlewares = [
-    routerMiddleware(createMemoryHistory()),
+    routerMiddleware(createHistory()),
     sagaMiddleware,
 ];
 
 export default (initialState) => {
     const store = createStore(
-        reducers,
+        rootReducers,
         initialState,
         compose(applyMiddleware(...reduxMiddlewares)),
     );

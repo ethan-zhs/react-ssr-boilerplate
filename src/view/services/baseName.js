@@ -1,20 +1,55 @@
 
-var HTTPS = 'https://';
+const HTTPS = 'https://';
+const HTTP = 'http://';
+const isProd = process.env.NODE_ENV == 'production';
 
-var LOCAL = 'localhost:4999';
-var DEV = HTTPS + 'dev.itouchtv.cn:8090';
-var TEST = HTTPS + 'test1.itouchtv.cn:8090';
-var PRO = HTTPS + 'api.itouchtv.cn:8090';
+const LOCAL = 'localhost:4999';
+const DEV = HTTPS + 'dev-api-domain';
+const TEST = HTTPS + 'test-api-domain';
+const PRO = HTTPS + 'prod-api-domain';
 
-var BASENAME = {
+const BASENAME = {
     localhost: TEST,
-    'dev-www.itouchtv.cn': DEV,
-    'test-www.itouchtv.cn': TEST,
-    'www.itouchtv.cn': PRO
+    'local-domain': PRO,
+    'dev-domain': DEV,
+    'test-domain': TEST,
+    'prod-domain': PRO
 };
 
+const SLB_PROD_HOST = '192.168.31.78';
 
-const currentBaseName = BASENAME[window.location.hostname] || TEST;
+const SLB_TEST_HOST = {
+    newsservice: '192.168.31.78',
+    supplementservice: '192.168.31.87',
+    userservice: '192.168.31.84',
+    liveservice: '192.168.31.81'
+};
 
+const SLB_INTERAL = {
+    newsservice: 8182,
+    supplementservice: 8184,
+    userservice: 8180,
+    liveservice: 8186
+};
 
-export default currentBaseName;
+let mapBaseName = {};
+
+if (typeof window === 'object') {
+    const BaseName = BASENAME[window.location.hostname] || TEST;
+    mapBaseName = Object.assign({}, mapBaseName, {
+        news: BaseName + '/newsservice',
+        user: BaseName + '/userservice',
+        spm: BaseName + '/supplementservice'
+    });
+} else {
+    const getBaseName = (service) => `${HTTP}${isProd ? SLB_PROD_HOST : SLB_TEST_HOST[service]}:${SLB_INTERAL[service]}`;
+    mapBaseName = Object.assign({}, mapBaseName, {
+        news: getBaseName('newsservice'),
+        spm: getBaseName('supplementservice'),
+        user: getBaseName('userservice')
+    });
+}
+
+const apiBaseName = mapBaseName;
+
+export default apiBaseName;

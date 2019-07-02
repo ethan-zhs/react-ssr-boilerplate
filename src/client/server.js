@@ -6,21 +6,22 @@ const path = require('path');
 const http = require('http');
 const Express = require('express');
 const compression = require('compression'); // gizp
-const config = require('../../config/webpack.config');
+const webpackconfig = require('../../config/webpack.dev.config');
 
 
 const app = new Express();
+const config = webpackconfig('client');
 const compiler = webpack(config);
 app.use(compression({ threshold: 0 }));
 
-app.use(webpackDevMiddleware(
-    compiler,
-    {
-        noInfo: true,
-        publicPath: config.output.publicPath
-    }
-));
-app.use(webpackHotMiddleware(compiler));
+app.use(webpackDevMiddleware(compiler, {
+    noInfo: true,
+    publicPath: config.output.publicPath
+}));
+app.use(webpackHotMiddleware(compiler, {
+    log: false,
+    heartbeat: 2000,
+}));
 app.use('/lib', Express.static(path.join(__dirname, './src/lib')));
 app.use('/statics', Express.static(path.join(__dirname, './src/statics')));
 app.use('/dll', Express.static(path.join(__dirname, '../../dll')));

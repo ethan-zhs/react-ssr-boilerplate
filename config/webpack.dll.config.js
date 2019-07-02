@@ -15,7 +15,8 @@ module.exports = {
             'crypto-js',
             'reselect',
             'react-router-redux',
-            'redux-logger'
+            'redux-logger',
+            'swiper'
         ]
     },
     output: {

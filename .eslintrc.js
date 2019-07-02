@@ -42,7 +42,7 @@ module.exports = {
         "comma-spacing": ["error", { "before": false, "after": true }],  
         "prefer-template": [0],
         "semi": ["error", "always"],//语句强制用分号结尾
-        "import/no-dynamic-require": [1],
+        "import/no-dynamic-require": [0],
         "function-paren-newline": [0],
         "no-nested-ternary": [1],
         "prefer-promise-reject-errors": [0],

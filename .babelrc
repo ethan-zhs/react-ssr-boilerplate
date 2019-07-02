@@ -1,23 +1,33 @@
 {
     "presets": [
-        "react", [
+        "react", 
+        [
             "env", {
                 "modules": false
             }
         ]
     ],
     "plugins": [
+        "loadable-components/babel",
         "transform-class-properties",
         "syntax-dynamic-import", 
+        "dynamic-import-node",
         "transform-runtime",
         "transform-object-rest-spread",
         "babel-plugin-transform-decorators-legacy",
-        ["import", 
-            {
-                "libraryName": "antd",
-                "style": true
+        ["module-resolver", {
+            "root": ["./src"],
+            "alias": {
+                "Public": "./src/view/statics",
+                "Components": "./src/view/components",
+                "Containers": "./src/view/containers",
+                "Global": "./src/view/global",
+                "Utils": "./src/view/utils",
+                "Hoc": "./src/view/hoc",
+                "Services": "./src/view/services",
+                "View": "./src/view"
             }
-        ]
+        }]
     ],
     "env": {
         "test": {

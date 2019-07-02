@@ -1,0 +1,57 @@
+
+.swiper-box {
+    height: 100%;
+    width: 100%;
+
+    .swiper-box {
+        background: linear-gradient(to top, black , transparent);
+        display: block;
+        height: 100%;
+        width: 100%;
+        position: relative;
+    }
+
+    :global(.swiper-pagination-bullets) {
+        bottom: 25px;
+    }
+
+    :global(.swiper-pagination-bullet) {
+        width: 12px;
+        height: 12px;
+        background: #fff;
+        opacity: 1;
+        margin: 0 9px !important;
+    }
+
+    :global(.swiper-pagination-bullet-active) {
+        background: #ffb72d;
+    }
+
+    .isAd {
+        position: absolute;
+        display: inline-block;
+        width: 48px;
+        height: 20px;
+        text-align: center;
+        line-height: 20px;
+        border-radius: 2px;
+        background: rgba(31, 90, 128, .4);
+        right: 20px;
+        bottom: 30px;
+        color: #fff;
+        z-index: 999;
+    }
+    
+    .title {
+        color: #fff;
+        position: absolute;
+        bottom: 84px;
+        padding: 0 30px;
+        box-sizing: border-box;
+        text-align: left;
+        width: 100%;
+        font-size: 32px;
+        z-index: 2;
+        font-weight: normal;
+    }
+}

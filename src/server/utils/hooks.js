@@ -24,7 +24,7 @@ const hooks = () => {
     require('asset-require-hook')({
         name: 'images/[name][hash:8].[ext]',
         extensions: ['jpg', 'jpeg', 'png', 'gif', 'webp', 'ico', 'woff', 'woff2', 'eot', 'ttf', 'svg', 'swf'],
-        limit: 4000,
+        limit: 4000
     });
 };
 

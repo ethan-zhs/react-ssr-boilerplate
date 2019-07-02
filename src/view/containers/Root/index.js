@@ -1,69 +1,45 @@
 import React, { Component } from 'react';
-// import PropsType from 'prop-types';
 
-import { Provider } from 'react-redux';
-import { createStore, applyMiddleware, compose } from 'redux';
-import { Router } from 'react-router-dom';
-import createSagaMiddleware from 'redux-saga';
+import { Route } from 'react-router-dom';
+import { Switch, Redirect } from 'react-router';
 
-import createBrowserHistory from 'history/createBrowserHistory';
+import prefetchSaga from 'Global/prefetch';
+import Layout from 'Containers/Layout';
+import 'Public/css/global.less';
 
-// import configureStore from './configureStore';
-// import renderRoutes from './routes/renderRoutes';
-// import routes from './routes';
+import matchRoutes from '../../routes/matchRoutes';
 
-// import { syncHistoryWithStore } from 'react-router-redux';
-// import CatchErrorHandler from 'components/CatchErrorHandler';
-
-import renderRoutes from '../../routes/renderRoutes';
-import reducers from './reducers';
-import rootSagas from './sagas';
-
-const initialState = {};
-const history = createBrowserHistory();
-// export const store = configureStore(initialState, history);
-// const connectedHistory = syncHistoryWithStore(history, store, {
-//     selectLocationState: state => state.get('routing')
-// });
-
-const sagaMiddleware = createSagaMiddleware();
-
-const middlewares = [
-    sagaMiddleware
-];
-
-const enhancers = [
-    applyMiddleware(...middlewares)
-];
-
-// If Redux DevTools Extension is installed use it, otherwise use Redux compose
-/* eslint-disable no-underscore-dangle */
-const composeEnhancers = process.env.NODE_ENV !== 'production' 
-    && typeof window === 'object' 
-    && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ 
-    ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ : compose;
-
-const store = createStore(reducers, composeEnhancers(...enhancers));
-
-store.runSaga = sagaMiddleware.run;
-store.runSaga(rootSagas);
-
-if (module.hot) {
-    module.hot.accept('./reducers', () => {
-        const nextReducer = require('./reducers');
-        store.replaceReducer(nextReducer);
-    });
-}
-
-
+/**
+ * PageName: 外层路由渲染
+ * 
+ * Author: zhuhuishao 
+ * use: [ 外层路由展示 ]
+ * 
+*/
 class Root extends Component {
+    static prefetch = prefetchSaga;
+
     render() {
+        const { route, location, history } = this.props;
+
+        let layout = {
+            hasNav: true,
+            hasHeader: true
+        };
+        const matchRoutesList = matchRoutes(this.props.route.routes, location.pathname);
+        if (matchRoutesList.length) {
+            layout = Object.assign(layout, matchRoutesList[matchRoutesList.length - 1].route.layout || {});
+        }
+
         return (
-            <Provider store={store}>
-                <Router history={history}>
-                    {renderRoutes()}
-                </Router>
-            </Provider>
+            <Layout {...this.props} layout={layout}>
+                <Switch>                    
+                    {route.routes && route.routes.map(item => (
+                        <Route key={item.path} path={item.path} exact={item.exact} component={item.component}></Route>
+                    ))}  
+                    <Redirect to='/404' />                  
+                </Switch>
+            </Layout>
         );
     }    
 }

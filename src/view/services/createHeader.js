@@ -1,13 +1,16 @@
 import MD5 from 'crypto-js/md5';
 import Base64 from 'crypto-js/enc-base64';
 import HmacSHA256 from 'crypto-js/hmac-sha256';
+import userUtils from 'Utils/userUtils';
 
 function createHeaders(method, requestUrl, bodyStream) {
+    const { getUser, getJWT, getDeviceId } = userUtils;
+
     const Timestamp = new Date().getTime();
     let headers = {};
 
-    const key = '28778826534697375418351580924221';
-    const secret = 'HGXimfS2hcAeWbsCW19JQ7PDasYOgg1lY2UWUDVX8nNmwr6aSaFznnPzKrZ84VY1';
+    const key = 'test key';
+    const secret = 'test secret';
 
     let md5 = '';
     let contentMD5 = '';
@@ -22,11 +25,12 @@ function createHeaders(method, requestUrl, bodyStream) {
     const sign = Base64.stringify(HmacSHA256(stringToSigned, secret));
 
     headers = {
-        'Content-Type': 'application/json',
-        'X-ITOUCHTV-Ca-Timestamp': Timestamp,
-        'X-ITOUCHTV-Ca-Signature': sign,
-        'X-ITOUCHTV-Ca-Key': key
+        'Content-Type': 'application/json'
     };
+
+    if (global.__X_FORWARDED_FOR__) {
+        headers['X-Forwarded-For'] = global.__X_FORWARDED_FOR__;
+    }
 
     return headers;
 }
