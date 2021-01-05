@@ -16,7 +16,7 @@
   "license": "ISC",
   "dependencies": {
     "asset-require-hook": "^1.2.0",
-    "axios": "^0.18.0",
+    "axios": "^0.21.1",
     "crypto-js": "^3.1.9-1",
     "css-loader": "^1.0.0",
     "css-modules-require-hook": "^4.2.3",
