@@ -50,7 +50,7 @@
     "redux-saga": "^0.16.0",
     "reselect": "^3.0.1",
     "style-loader": "^0.23.0",
-    "swiper": "^4.4.6",
+    "swiper": "^6.5.1",
     "uglifyjs-webpack-plugin": "^2.1.2",
     "url-loader": "^1.1.1",
     "uuid": "^3.3.2",
